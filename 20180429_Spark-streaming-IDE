@@ -1,0 +1,19 @@
+https://medium.com/@harinilabs/day-6-realtime-tweets-analysis-using-spark-streaming-with-scala-10a9937aae57
+https://mapr.com/blog/spark-streaming-and-twitter-sentiment-analysis/
+
+1. Install Scala IDE locally and build project
+	- Start Maven Project
+	- When create project, be careful with the naming of groupID and artifactID (they should be the package name later)
+	- Configure to add Scala so to compile Scala program
+	- Add new object (to a package - JAVA style), name the object as groupID.artifactID.objectname, then the object will be under the package groupID.artifactID
+
+2. Practise with PrintTweets
+	- Add correct dependencies, the version names should be correct and corresponds to each other, otherwise there will be import error 
+	- check out the dependencies at (https://mvnrepository.com/)
+	- (add to pom.xml, which is equivalent to sbt file)
+	- Try streaming data from Twitter
+
+3. Practise with StreamingWordCoutn
+	- set up netcat: nc -lk 9999
+	- connect to localhost 9999
+	- setMaster should be "localhost[*]", instead of "localhost", otherwise it complains about no replicates

@@ -1,0 +1,28 @@
+Kaggle Kernel - New York Times Comment - Sentiment Analysis
+
+1. Data Cleaning
+- apply function to data frame and groupby object
+headlines = article['headline'].apply(lambda x: re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", "", x).split(" "))
+tmp2 = df.groupby("articleID").apply(tmpfunc).to_dict()
+
+- flatten nested list with nested for looop
+hlwords = [word for subh in headlines for word in subh]
+
+- Use of counter
+hlwords = Counter(hlwords)
+
+- Sorting dictionary
+hlwords = sorted(hlwords.items(), key=operator.itemgetter(1), reverse=True)
+
+2. Plotting data with Dataframe.plot()
+
+3. Simple sentiment analysis with TextBlob
+
+analysis = TextBlob(text)
+score = analysis.sentiment.polarity
+
+4. Play with Dataframe
+
+tmp3 = tmp['commentBody'].groupby(tmp["articleID"]).apply(tmpfunc).unstack()
+
+*count unstack only when one column is selected (columnBody)

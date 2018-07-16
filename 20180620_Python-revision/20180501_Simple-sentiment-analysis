@@ -1,0 +1,15 @@
+Kaggle Kernel - New York Times Comment - Sentiment Analysis
+
+1. NLTK library
+
+- nltk tokenizer: tokenize words, return a list of words
+- nltk stop words: remove rather meaningless words
+
+2. Apply function
+
+- when perform some functions on a dataframe or series, could use apply
+- For dataframe or more than one column df[['a','b']], the apply function applies on the SERIES
+df.apply(func, axis=0) - apply on each column
+df.apply(func, axis=1) - apply on each row
+
+- For dataframe of ONLY ONE column, or a series df['a'], apply function applies on EACH element

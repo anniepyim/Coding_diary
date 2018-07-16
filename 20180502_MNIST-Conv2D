@@ -1,0 +1,34 @@
+Keras MNIST data
+
+1. Load MNIST data with KERAS library
+	
+	import keras
+	from keras.datasets import mnist
+	(X_train, y_train), (X_test, y_test) = mnist.load_data()
+
+2. Plot MNIST figure with implot()
+	- The input to implot() could be a PIL image, or an array of (n*m), (n*m*3) with RGB channel, (n*m*4) with RGBA channel
+	- Since MNIST data is an array, it could be plot with implot
+
+	import matplotlib.pyplot as plt
+	plt.implot(X_train[0])
+
+3. Build a 2D Conv model using Sequential()
+
+	from keras.models import Seqential
+	from keras.layers import Dense, Dropout, Flatten
+	from keras.layers.convolutional import Conv2D, MaxPooling2D
+
+	model = Seqential()
+	
+	# Only the first layer needs input_shape
+	model.add(Conv2D(channel_num, (filter_size, filter_size), input_shape=(tuple_of_integers), activation="relu"))
+	model.add(MaxPooling2D(pool_size=(2,2)))
+	model.add(Dropout(0.5))
+	...
+	...
+	...
+	model.add(Flatten())
+	model.add(Dense(128, activation='relu'))
+	model.add(Dense(num_classes, activation='softmax'))
+	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])

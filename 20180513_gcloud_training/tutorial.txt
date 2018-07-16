@@ -1,0 +1,61 @@
+https://cloud.google.com/ml-engine/docs/tensorflow/getting-started-training-prediction
+
+Detailed example check python-ML/dogbreed
+
+1) Set up GCP project (only for the first time)
+- Create GCP project
+- Set up Google Cloud SDK (https://cloud.google.com/sdk/docs/quickstart-macos)
+- Install virtual env
+
+virtualenv gcloud
+source gcloud/bin/activate
+
+- Install pip and python
+
+
+2) Verify Gcloud settings
+gcloud config list
+
+
+Everything below occurs at the dir tutorial
+cd tutorial
+
+
+3) Train locally
+
+	a) Training
+	- Data is located at /data
+	- Script is located at trainer/task.py
+
+	Run local_train.sh
+
+	b) Check output
+
+	tensorboard --logdir=(your output dir)
+
+
+4) Run on Google Cloud
+
+	a) Setup Storage Bucket
+	- Create bucket on google storage (only when you need new one)
+
+	BUCKET_NAME="tf-learn-189817-census"
+	gsutil mb -l europe-west1 gs://$BUCKET_NAME
+
+	- Copy stuff to the bucket (only for the first time)
+
+	gsutil cp -r data gs://$BUCKET_NAME/data
+
+	b) Set up config and hyperparameter (if any)
+
+	- review configs.yaml
+
+	d) Set up setup.py if you need to install some python packages like keras, python, etc
+
+	- review setup.py
+
+	c) Train on cloud
+	- Run cloud_train.sh
+
+	d) Check output
+	tensorboard --logdir=(your output dir on gs)

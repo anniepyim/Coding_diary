@@ -1,0 +1,3029 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Kaggle\_data\_science}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{data-scientist}{%
+\section{DATA SCIENTIST}\label{data-scientist}}
+
+\textbf{In this tutorial, I only explain you what you need to be a data
+scientist neither more nor less.}
+
+Data scientist need to have these skills:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Basic Tools: Like python, R or SQL. You do not need to know
+  everything. What you only need is to learn how to use \textbf{python}
+\item
+  Basic Statistics: Like mean, median or standart deviation. If you know
+  basic statistics, you can use \textbf{python} easily.
+\item
+  Data Munging: Working with messy and difficult data. Like a
+  inconsistent date and string formatting. As you guess, \textbf{python}
+  helps us.
+\item
+  Data Visualization: Title is actually explanatory. We will visualize
+  the data with \textbf{python} like matplot and seaborn libraries.
+\item
+  Machine Learning: You do not need to understand math behind the
+  machine learning technique. You only need is understanding basics of
+  machine learning and learning how to implement it while using
+  \textbf{python}.
+\end{enumerate}
+
+\hypertarget{as-a-summary-we-will-learn-python-to-be-data-scientist}{%
+\subsubsection{As a summary we will learn python to be data scientist
+!!!}\label{as-a-summary-we-will-learn-python-to-be-data-scientist}}
+
+\textbf{Content:} 1. Introduction to Python: 1. Matplotlib 1.
+Dictionaries 1. Pandas 1. Logic, control flow and filtering 1. Loop data
+structures 1. Python Data Science Toolbox: 1. User defined function 1.
+Scope 1. Nested function 1. Default and flexible arguments 1. Lambda
+function 1. Anonymous function 1. Iterators 1. List comprehension 1.
+Cleaning Data 1. Diagnose data for cleaning 1. Explotary data analysis
+1. Visual exploratory data analysis 1. Tidy data 1. Pivoting data 1.
+Concatenating data 1. Data types 1. Missing data and testing with assert
+1. Pandas Foundation 1. Review of pandas 1. Building data frames from
+scratch 1. Visual exploratory data analysis 1. Statistical explatory
+data analysis 1. Indexing pandas time series 1. Resampling pandas time
+series 1. Manipulating Data Frames with Pandas 1. Indexing data frames
+1. Slicing data frames 1. Filtering data frames 1. Transforming data
+frames 1. Index objects and labeled data 1. Hierarchical indexing 1.
+Pivoting data frames 1. Stacking and unstacking data frames 1. Melting
+data frames 1. Categoricals and groupby 1. Data Visualization 1.
+Seaborn: https://www.kaggle.com/kanncaa1/seaborn-for-beginners 1. Bokeh:
+https://www.kaggle.com/kanncaa1/interactive-bokeh-tutorial-part-1 1.
+Bokeh: https://www.kaggle.com/kanncaa1/interactive-bokeh-tutorial-part-2
+1. Machine Learning 1.
+https://www.kaggle.com/kanncaa1/machine-learning-tutorial-for-beginners/
+1. Deep Learning 1.
+https://www.kaggle.com/kanncaa1/deep-learning-tutorial-for-beginners
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} This Python 3 environment comes with many helpful analytics libraries installed}
+        \PY{c+c1}{\PYZsh{} It is defined by the kaggle/python docker image: https://github.com/kaggle/docker\PYZhy{}python}
+        \PY{c+c1}{\PYZsh{} For example, here\PYZsq{}s several helpful packages to load in }
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} linear algebra}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} \PY{c+c1}{\PYZsh{} data processing, CSV file I/O (e.g. pd.read\PYZus{}csv)}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        
+        \PY{c+c1}{\PYZsh{} Input data files are available in the \PYZdq{}../input/\PYZdq{} directory.}
+        \PY{c+c1}{\PYZsh{} For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory}
+        
+        \PY{k+kn}{from} \PY{n+nn}{subprocess} \PY{k}{import} \PY{n}{check\PYZus{}output}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{check\PYZus{}output}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../input}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Any results you write to the current directory are saved as output.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+combats.csv
+pokemon.csv
+tests.csv
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../input/pokemon.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    \#           Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+        0  1      Bulbasaur  Grass  Poison  45      49       49       65       65   
+        1  2        Ivysaur  Grass  Poison  60      62       63       80       80   
+        2  3       Venusaur  Grass  Poison  80      82       83      100      100   
+        3  4  Mega Venusaur  Grass  Poison  80     100      123      122      120   
+        4  5     Charmander   Fire     NaN  39      52       43       60       50   
+        
+           Speed  Generation  Legendary  
+        0     45           1      False  
+        1     60           1      False  
+        2     80           1      False  
+        3     80           1      False  
+        4     65           1      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{data1} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{k+kc}{True}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{data2} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{k+kc}{False}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} ax1.hist(data1)}
+        \PY{c+c1}{\PYZsh{} ax2.hist(data2)}
+        
+        \PY{c+c1}{\PYZsh{} plt.hist([data1,data2], stacked=True)}
+        \PY{c+c1}{\PYZsh{} plt.legend([\PYZsq{}True\PYZsq{},\PYZsq{}False\PYZsq{}])}
+        \PY{c+c1}{\PYZsh{} plt.show()}
+        
+        \PY{c+c1}{\PYZsh{}data.groupby(\PYZdq{}Legendary\PYZdq{})[\PYZdq{}Attack\PYZdq{}].plot(kind=\PYZdq{}kde\PYZdq{}, legend=True)}
+        
+        \PY{n}{data1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{True}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{ax1}\PY{p}{)}
+        \PY{n}{data2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kde}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{False}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{ax2}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.legend.Legend at 0x109f4beb8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}correlation map}
+        \PY{n}{f}\PY{p}{,}\PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fmt}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x103521eb8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}     \#              Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+        0   1         Bulbasaur  Grass  Poison  45      49       49       65       65   
+        1   2           Ivysaur  Grass  Poison  60      62       63       80       80   
+        2   3          Venusaur  Grass  Poison  80      82       83      100      100   
+        3   4     Mega Venusaur  Grass  Poison  80     100      123      122      120   
+        4   5        Charmander   Fire     NaN  39      52       43       60       50   
+        5   6        Charmeleon   Fire     NaN  58      64       58       80       65   
+        6   7         Charizard   Fire  Flying  78      84       78      109       85   
+        7   8  Mega Charizard X   Fire  Dragon  78     130      111      130       85   
+        8   9  Mega Charizard Y   Fire  Flying  78     104       78      159      115   
+        9  10          Squirtle  Water     NaN  44      48       65       50       64   
+        
+           Speed  Generation  Legendary  
+        0     45           1      False  
+        1     60           1      False  
+        2     80           1      False  
+        3     80           1      False  
+        4     65           1      False  
+        5     80           1      False  
+        6    100           1      False  
+        7    100           1      False  
+        8    100           1      False  
+        9     43           1      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 800 entries, 0 to 799
+Data columns (total 12 columns):
+\#             800 non-null int64
+Name          799 non-null object
+Type 1        800 non-null object
+Type 2        414 non-null object
+HP            800 non-null int64
+Attack        800 non-null int64
+Defense       800 non-null int64
+Sp. Atk       800 non-null int64
+Sp. Def       800 non-null int64
+Speed         800 non-null int64
+Generation    800 non-null int64
+Legendary     800 non-null bool
+dtypes: bool(1), int64(8), object(3)
+memory usage: 69.6+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{data}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Index(['\#', 'Name', 'Type 1', 'Type 2', 'HP', 'Attack', 'Defense', 'Sp. Atk',
+               'Sp. Def', 'Speed', 'Generation', 'Legendary'],
+              dtype='object')
+\end{Verbatim}
+            
+    \hypertarget{introduction-to-python}{%
+\section{1. INTRODUCTION TO PYTHON}\label{introduction-to-python}}
+
+    \hypertarget{matplotlib}{%
+\subsubsection{MATPLOTLIB}\label{matplotlib}}
+
+Matplot is a python library that help us to plot data. The easiest and
+basic plots are line, scatter and histogram plots. * Line plot is better
+when x axis is time. * Scatter is better when there is correlation
+between two variables * Histogram is better when we need to see
+distribution of numerical data. * Customization: Colors,labels,thickness
+of line, title, opacity, grid, figsize, ticks of axis and linestyle
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Line Plot}
+        \PY{c+c1}{\PYZsh{} color = color, label = label, linewidth = width of line, alpha = opacity, grid = grid, linestyle = sytle of line}
+        \PY{n}{data}\PY{o}{.}\PY{n}{Speed}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{grid} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{data}\PY{o}{.}\PY{n}{Defense}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{line}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{grid} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}     \PY{c+c1}{\PYZsh{} legend = puts label into plot}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}              \PY{c+c1}{\PYZsh{} label = name of label}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Line Plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}            \PY{c+c1}{\PYZsh{} title = title of plot}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Text(0.5,1,'Line Plot')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Scatter Plot }
+         \PY{c+c1}{\PYZsh{} x = attack, y = defense}
+         \PY{n}{data}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}              \PY{c+c1}{\PYZsh{} label = name of label}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack Defense Scatter Plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}            \PY{c+c1}{\PYZsh{} title = title of plot}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Text(0.5,1,'Attack Defense Scatter Plot')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Histogram}
+         \PY{c+c1}{\PYZsh{} bins = number of bar in figure}
+         \PY{n}{data}\PY{o}{.}\PY{n}{Speed}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x10b871128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} clf() = cleans it up again you can start a fresh}
+         \PY{n}{data}\PY{o}{.}\PY{n}{Speed}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{clf}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} We cannot see plot due to clf()}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \hypertarget{dictionary}{%
+\subsubsection{DICTIONARY}\label{dictionary}}
+
+Why we need dictionary? * It has `key' and `value' * Faster than lists
+What is key and value. Example: * dictionary = \{`spain' : `madrid'\} *
+Key is spain. * Values is madrid. \textbf{It's that easy.} Lets practice
+some other properties like keys(), values(), update, add, check, remove
+key, remove all entries and remove dicrionary.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}create dictionary and look its keys and values}
+         \PY{n}{dictionary} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spain}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{madrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usa}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vegas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dict\_keys(['spain', 'usa'])
+dict\_values(['madrid', 'vegas'])
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Keys have to be immutable objects like string, boolean, float, integer or tubles}
+         \PY{c+c1}{\PYZsh{} List is not immutable}
+         \PY{c+c1}{\PYZsh{} Keys are unique}
+         \PY{n}{dictionary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{barcelona}\PY{l+s+s2}{\PYZdq{}}    \PY{c+c1}{\PYZsh{} update existing entry}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}
+         \PY{n}{dictionary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{france}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{paris}\PY{l+s+s2}{\PYZdq{}}       \PY{c+c1}{\PYZsh{} Add new entry}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}
+         \PY{k}{del} \PY{n}{dictionary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}              \PY{c+c1}{\PYZsh{} remove entry with key \PYZsq{}spain\PYZsq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{france}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{dictionary}\PY{p}{)}        \PY{c+c1}{\PYZsh{} check include or not}
+         \PY{n}{dictionary}\PY{o}{.}\PY{n}{clear}\PY{p}{(}\PY{p}{)}                   \PY{c+c1}{\PYZsh{} remove all entries in dict}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'spain': 'barcelona', 'usa': 'vegas'\}
+\{'spain': 'barcelona', 'usa': 'vegas', 'france': 'paris'\}
+\{'usa': 'vegas', 'france': 'paris'\}
+True
+\{\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} In order to run all code you need to take comment this line}
+         \PY{c+c1}{\PYZsh{} del dictionary ;        \PYZsh{} delete entire dictionary     }
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}       \PY{c+c1}{\PYZsh{} it gives error because dictionary is deleted}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{\}
+
+    \end{Verbatim}
+
+    \hypertarget{pandas}{%
+\subsubsection{PANDAS}\label{pandas}}
+
+What we need to know about pandas? * CSV: comma - separated values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../input/pokemon.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{series} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}        \PY{c+c1}{\PYZsh{} data[\PYZsq{}Defense\PYZsq{}] = series}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{series}\PY{p}{)}\PY{p}{)}
+         \PY{n}{data\PYZus{}frame} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}  \PY{c+c1}{\PYZsh{} data[[\PYZsq{}Defense\PYZsq{}]] = data frame}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{data\PYZus{}frame}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.series.Series'>
+<class 'pandas.core.frame.DataFrame'>
+
+    \end{Verbatim}
+
+    Before continue with pandas, we need to learn \textbf{logic, control
+flow} and \textbf{filtering.} Comparison operator: ==, \textless{},
+\textgreater{}, \textless{}= Boolean operators: and, or ,not Filtering
+pandas
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Comparison operator}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{\PYZgt{}} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{!=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Boolean operators}
+         \PY{n+nb}{print}\PY{p}{(}\PY{k+kc}{True} \PY{o+ow}{and} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{k+kc}{True} \PY{o+ow}{or} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+True
+False
+True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} 1 \PYZhy{} Filtering Pandas data frame}
+         \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{200}     \PY{c+c1}{\PYZsh{} There are only 3 pokemons who have higher defense value than 200}
+         \PY{n}{data}\PY{p}{[}\PY{n}{x}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}        \#          Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+         224  225  Mega Steelix  Steel  Ground  75     125      230       55       95   
+         230  231       Shuckle    Bug    Rock  20      10      230       10      230   
+         333  334   Mega Aggron  Steel     NaN  70     140      230       60       80   
+         
+              Speed  Generation  Legendary  
+         224     30           2      False  
+         230      5           2      False  
+         333     50           3      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} 2 \PYZhy{} Filtering pandas with logical\PYZus{}and}
+         \PY{c+c1}{\PYZsh{} There are only 2 pokemons who have higher defence value than 2oo and higher attack value than 100}
+         \PY{n}{data}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}and}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{100} \PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}        \#          Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+         224  225  Mega Steelix  Steel  Ground  75     125      230       55       95   
+         333  334   Mega Aggron  Steel     NaN  70     140      230       60       80   
+         
+              Speed  Generation  Legendary  
+         224     30           2      False  
+         333     50           3      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} This is also same with previous code line. Therefore we can also use \PYZsq{}\PYZam{}\PYZsq{} for filtering.}
+         \PY{n}{data}\PY{p}{[}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{200}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}        \#          Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+         224  225  Mega Steelix  Steel  Ground  75     125      230       55       95   
+         333  334   Mega Aggron  Steel     NaN  70     140      230       60       80   
+         
+              Speed  Generation  Legendary  
+         224     30           2      False  
+         333     50           3      False  
+\end{Verbatim}
+            
+    \hypertarget{while-and-for-loops}{%
+\subsubsection{WHILE and FOR LOOPS}\label{while-and-for-loops}}
+
+We will learn most basic while and for loops
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Stay in loop if condition( i is not equal 5) is true}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{while} \PY{n}{i} \PY{o}{!=} \PY{l+m+mi}{5} \PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ is equal to 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+i is:  0
+i is:  1
+i is:  2
+i is:  3
+i is:  4
+5  is equal to 5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Stay in loop if condition( i is not equal 5) is true}
+         \PY{n}{lis} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{lis}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Enumerate index and value of list}
+         \PY{c+c1}{\PYZsh{} index : value = 0:1, 1:2, 2:3, 3:4, 4:5}
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{lis}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{index}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{value}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}   
+         
+         \PY{c+c1}{\PYZsh{} For dictionaries}
+         \PY{c+c1}{\PYZsh{} We can use for loop to achive key and value of dictionary. We learnt key and value at dictionary part.}
+         \PY{n}{dictionary} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{madrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{france}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paris}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{key}\PY{p}{,}\PY{n}{value} \PY{o+ow}{in} \PY{n}{dictionary}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{key}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{value}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} For pandas we can achieve index and value}
+         \PY{k}{for} \PY{n}{index}\PY{p}{,}\PY{n}{value} \PY{o+ow}{in} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{index}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{value}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+i is:  1
+i is:  2
+i is:  3
+i is:  4
+i is:  5
+
+0  :  1
+1  :  2
+2  :  3
+3  :  4
+4  :  5
+
+spain  :  madrid
+france  :  paris
+
+0  :  Attack    49
+Name: 0, dtype: int64
+1  :  Attack    62
+Name: 1, dtype: int64
+2  :  Attack    82
+Name: 2, dtype: int64
+3  :  Attack    100
+Name: 3, dtype: int64
+4  :  Attack    52
+Name: 4, dtype: int64
+
+    \end{Verbatim}
+
+    In this part, you learn: * how to import csv file * plotting
+line,scatter and histogram * basic dictionary features * basic pandas
+features like filtering that is actually something always used and main
+for being data scientist * While and for loops
+
+    \hypertarget{python-data-science-toolbox}{%
+\section{2. PYTHON DATA SCIENCE
+TOOLBOX}\label{python-data-science-toolbox}}
+
+    \hypertarget{user-defined-function}{%
+\subsubsection{USER DEFINED FUNCTION}\label{user-defined-function}}
+
+What we need to know about functions: * docstrings: documentation for
+functions. Example: for f(): ""``This is docstring for documentation of
+function f''"" * tuble: sequence of immutable python objects. cant
+modify values tuble uses paranthesis like tuble = (1,2,3) unpack tuble
+into several variables like a,b,c = tuble
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} example of what we learn above}
+         \PY{k}{def} \PY{n+nf}{tuble\PYZus{}ex}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} return defined t tuble\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{t} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+             \PY{k}{return} \PY{n}{t}
+         \PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{c} \PY{o}{=} \PY{n}{tuble\PYZus{}ex}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 2 3
+
+    \end{Verbatim}
+
+    \hypertarget{scope}{%
+\subsubsection{SCOPE}\label{scope}}
+
+What we need to know about scope: * global: defined main body in script
+* local: defined in a function * built in scope: names in predefined
+built in scope module such as print, len Lets make some basic examples
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} guess print what}
+         \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{3}
+             \PY{k}{return} \PY{n}{x}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}      \PY{c+c1}{\PYZsh{} x = 2 global scope}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{p}{)}\PY{p}{)}    \PY{c+c1}{\PYZsh{} x = 3 local scope}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} What if there is no local scope}
+         \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}        \PY{c+c1}{\PYZsh{} there is no local scope x}
+             \PY{k}{return} \PY{n}{y}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{p}{)}\PY{p}{)}         \PY{c+c1}{\PYZsh{} it uses global scope x}
+         \PY{c+c1}{\PYZsh{} First local scopesearched, then global scope searched, if two of them cannot be found lastly built in scope searched.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} How can we learn what is built in scope}
+         \PY{k+kn}{import} \PY{n+nn}{builtins}
+         \PY{n+nb}{dir}\PY{p}{(}\PY{n}{builtins}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} ['ArithmeticError',
+          'AssertionError',
+          'AttributeError',
+          'BaseException',
+          'BlockingIOError',
+          'BrokenPipeError',
+          'BufferError',
+          'BytesWarning',
+          'ChildProcessError',
+          'ConnectionAbortedError',
+          'ConnectionError',
+          'ConnectionRefusedError',
+          'ConnectionResetError',
+          'DeprecationWarning',
+          'EOFError',
+          'Ellipsis',
+          'EnvironmentError',
+          'Exception',
+          'False',
+          'FileExistsError',
+          'FileNotFoundError',
+          'FloatingPointError',
+          'FutureWarning',
+          'GeneratorExit',
+          'IOError',
+          'ImportError',
+          'ImportWarning',
+          'IndentationError',
+          'IndexError',
+          'InterruptedError',
+          'IsADirectoryError',
+          'KeyError',
+          'KeyboardInterrupt',
+          'LookupError',
+          'MemoryError',
+          'ModuleNotFoundError',
+          'NameError',
+          'None',
+          'NotADirectoryError',
+          'NotImplemented',
+          'NotImplementedError',
+          'OSError',
+          'OverflowError',
+          'PendingDeprecationWarning',
+          'PermissionError',
+          'ProcessLookupError',
+          'RecursionError',
+          'ReferenceError',
+          'ResourceWarning',
+          'RuntimeError',
+          'RuntimeWarning',
+          'StopAsyncIteration',
+          'StopIteration',
+          'SyntaxError',
+          'SyntaxWarning',
+          'SystemError',
+          'SystemExit',
+          'TabError',
+          'TimeoutError',
+          'True',
+          'TypeError',
+          'UnboundLocalError',
+          'UnicodeDecodeError',
+          'UnicodeEncodeError',
+          'UnicodeError',
+          'UnicodeTranslateError',
+          'UnicodeWarning',
+          'UserWarning',
+          'ValueError',
+          'Warning',
+          'ZeroDivisionError',
+          '\_\_IPYTHON\_\_',
+          '\_\_build\_class\_\_',
+          '\_\_debug\_\_',
+          '\_\_doc\_\_',
+          '\_\_import\_\_',
+          '\_\_loader\_\_',
+          '\_\_name\_\_',
+          '\_\_package\_\_',
+          '\_\_spec\_\_',
+          'abs',
+          'all',
+          'any',
+          'ascii',
+          'bin',
+          'bool',
+          'bytearray',
+          'bytes',
+          'callable',
+          'chr',
+          'classmethod',
+          'compile',
+          'complex',
+          'copyright',
+          'credits',
+          'delattr',
+          'dict',
+          'dir',
+          'display',
+          'divmod',
+          'enumerate',
+          'eval',
+          'exec',
+          'filter',
+          'float',
+          'format',
+          'frozenset',
+          'get\_ipython',
+          'getattr',
+          'globals',
+          'hasattr',
+          'hash',
+          'help',
+          'hex',
+          'id',
+          'input',
+          'int',
+          'isinstance',
+          'issubclass',
+          'iter',
+          'len',
+          'license',
+          'list',
+          'locals',
+          'map',
+          'max',
+          'memoryview',
+          'min',
+          'next',
+          'object',
+          'oct',
+          'open',
+          'ord',
+          'pow',
+          'print',
+          'property',
+          'range',
+          'repr',
+          'reversed',
+          'round',
+          'set',
+          'setattr',
+          'slice',
+          'sorted',
+          'staticmethod',
+          'str',
+          'sum',
+          'super',
+          'tuple',
+          'type',
+          'vars',
+          'zip']
+\end{Verbatim}
+            
+    \hypertarget{nested-function}{%
+\subsubsection{NESTED FUNCTION}\label{nested-function}}
+
+\begin{itemize}
+\tightlist
+\item
+  function inside function.
+\item
+  There is a LEGB rule that is search local scope, enclosing function,
+  global and built in scopes, respectively.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}nested function}
+         \PY{k}{def} \PY{n+nf}{square}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} return square of value \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{def} \PY{n+nf}{add}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} add two local variable \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{2}
+                 \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{3}
+                 \PY{n}{z} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{n}{y}
+                 \PY{k}{return} \PY{n}{z}
+             \PY{k}{return} \PY{n}{add}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{square}\PY{p}{(}\PY{p}{)}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+25
+
+    \end{Verbatim}
+
+    \hypertarget{default-and-flexible-arguments}{%
+\subsubsection{DEFAULT and FLEXIBLE
+ARGUMENTS}\label{default-and-flexible-arguments}}
+
+\begin{itemize}
+\tightlist
+\item
+  Default argument example: def f(a, b=1): """ b = 1 is default
+  argument"""
+\item
+  Flexible argument example: def f(\emph{args): """ }args can be one or
+  more""" def f(** kwargs) """ **kwargs is a dictionary"""
+\end{itemize}
+
+ lets write some code to practice
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{c+c1}{\PYZsh{} default arguments}
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y} \PY{o}{=} \PY{n}{a} \PY{o}{+} \PY{n}{b} \PY{o}{\PYZhy{}} \PY{n}{c}
+             \PY{k}{return} \PY{n}{y}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} what if we want to change default arguments}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{n}{b}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{a}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{} flexible arguments *args}
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{args}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+         \PY{n}{f}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{f}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} flexible arguments **kwargs that is dictionary}
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} print key and value of dictionary\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{kwargs}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}               \PY{c+c1}{\PYZsh{} If you do not understand this part turn for loop part and look at dictionary in for loop}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{key}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{value}\PY{p}{)}
+         \PY{n}{f}\PY{p}{(}\PY{n}{country} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{capital} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{madrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{population} \PY{o}{=} \PY{l+m+mi}{123456}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-87-f2b132cdf72c>", line 13
+        f(\{ountry = 'spain', capital = 'madrid', population = 123456\})
+                  \^{}
+    SyntaxError: invalid syntax
+
+
+    \end{Verbatim}
+
+    \hypertarget{lambda-function}{%
+\subsubsection{LAMBDA FUNCTION}\label{lambda-function}}
+
+Faster way of writing function
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{c+c1}{\PYZsh{} lambda function}
+         \PY{n}{square} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}     \PY{c+c1}{\PYZsh{} where x is name of argument}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{square}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{tot} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{z}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{o}{+}\PY{n}{z}   \PY{c+c1}{\PYZsh{} where x,y,z are names of arguments}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{tot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+16
+6
+
+    \end{Verbatim}
+
+    \hypertarget{anonymous-function}{%
+\subsubsection{ANONYMOUS FUNCTİON}\label{anonymous-function}}
+
+Like lambda function but it can take more than one arguments. *
+map(func,seq) : applies a function to all the items in a list
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{number\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{yb} \PY{k}{for} \PY{n}{yb} \PY{o+ow}{in} \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{number\PYZus{}list}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+          
+          \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{xb}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{xb} \PY{o+ow}{in} \PY{n}{number\PYZus{}list}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 4, 9]
+[1, 4, 9]
+
+    \end{Verbatim}
+
+    \hypertarget{iterators}{%
+\subsubsection{ITERATORS}\label{iterators}}
+
+\begin{itemize}
+\tightlist
+\item
+  iterable is an object that can return an iterator
+\item
+  iterable: an object with an associated iter() method example: list,
+  strings and dictionaries
+\item
+  iterator: produces next value with next() method
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} iteration example}
+         \PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ronaldo}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{it} \PY{o}{=} \PY{n+nb}{iter}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{next}\PY{p}{(}\PY{n}{it}\PY{p}{)}\PY{p}{)}    \PY{c+c1}{\PYZsh{} print next iteration}
+         \PY{n+nb}{print}\PY{p}{(}\PY{o}{*}\PY{n}{it}\PY{p}{)}         \PY{c+c1}{\PYZsh{} print remaining iteration}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+r
+o n a l d o
+
+    \end{Verbatim}
+
+    zip(): zip lists
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{c+c1}{\PYZsh{} zip example}
+         \PY{n}{list1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{list2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}
+         \PY{n}{z} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{list1}\PY{p}{,}\PY{n}{list2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+         \PY{n}{z\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{z\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<zip object at 0x11b552948>
+[(1, 5), (2, 6), (3, 7), (4, 8)]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{un\PYZus{}zip} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{z\PYZus{}list}\PY{p}{)}
+         \PY{n}{un\PYZus{}list1}\PY{p}{,}\PY{n}{un\PYZus{}list2} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{un\PYZus{}zip}\PY{p}{)} \PY{c+c1}{\PYZsh{} unzip returns tuble}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{un\PYZus{}list1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{un\PYZus{}list2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{un\PYZus{}list2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1, 2, 3, 4)
+(5, 6, 7, 8)
+<class 'tuple'>
+
+    \end{Verbatim}
+
+    \hypertarget{list-comprehension}{%
+\subsubsection{LIST COMPREHENSİON}\label{list-comprehension}}
+
+\textbf{One of the most important topic of this kernel} We use list
+comprehension for data analysis often. list comprehension: collapse for
+loops for building lists into a single line Ex: num1 = {[}1,2,3{]} and
+we want to make it num2 = {[}2,3,4{]}. This can be done with for loop.
+However it is unnecessarily long. We can make it one line code that is
+list comprehension.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{} Example of list comprehension}
+         \PY{n}{num1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n}{num2} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{num1} \PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{num2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[2, 3, 4]
+
+    \end{Verbatim}
+
+     i +1: list comprehension syntax for i in num1: for loop syntax i:
+iterator num1: iterable object
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Conditionals on iterable}
+        \PY{n}{num1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{]}
+        \PY{n}{num2} \PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{10} \PY{k}{else} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{7} \PY{k}{else} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{5} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{num1}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{num2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{c+c1}{\PYZsh{} lets return pokemon csv and make one more list comprehension example}
+          \PY{c+c1}{\PYZsh{} lets classify pokemons whether they have high or low speed. Our threshold is average speed.}
+          \PY{n}{threshold} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{Speed}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{Speed}\PY{p}{)}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{speed\PYZus{}level}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{high}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZgt{}} \PY{n}{threshold} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{low}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{Speed}\PY{p}{]}
+          \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{speed\PYZus{}level}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{} we will learn loc more detailed later}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:}    speed\_level  Speed
+          0          low     45
+          1          low     60
+          2         high     80
+          3         high     80
+          4          low     65
+          5         high     80
+          6         high    100
+          7         high    100
+          8         high    100
+          9          low     43
+          10         low     58
+\end{Verbatim}
+            
+    Up to now, you learn * User defined function * Scope * Nested function *
+Default and flexible arguments * Lambda function * Anonymous function *
+Iterators * List comprehension
+
+    \hypertarget{cleaning-data}{%
+\section{3.CLEANING DATA}\label{cleaning-data}}
+
+    \hypertarget{diagnose-data-for-cleaning}{%
+\subsubsection{DIAGNOSE DATA for
+CLEANING}\label{diagnose-data-for-cleaning}}
+
+We need to diagnose and clean data before exploring. Unclean data: *
+Column name inconsistency like upper-lower case letter or space between
+words * missing data * different language
+
+ We will use head, tail, columns, shape and info methods to diagnose
+data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../input/pokemon.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} head shows first 5 rows}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:}    \#           Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+          0  1      Bulbasaur  Grass  Poison  45      49       49       65       65   
+          1  2        Ivysaur  Grass  Poison  60      62       63       80       80   
+          2  3       Venusaur  Grass  Poison  80      82       83      100      100   
+          3  4  Mega Venusaur  Grass  Poison  80     100      123      122      120   
+          4  5     Charmander   Fire     NaN  39      52       43       60       50   
+          
+             Speed  Generation  Legendary  
+          0     45           1      False  
+          1     60           1      False  
+          2     80           1      False  
+          3     80           1      False  
+          4     65           1      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{} tail shows last 5 rows}
+          \PY{n}{data}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:}        \#            Name   Type 1 Type 2  HP  Attack  Defense  Sp. Atk  \textbackslash{}
+          795  796         Diancie     Rock  Fairy  50     100      150      100   
+          796  797    Mega Diancie     Rock  Fairy  50     160      110      160   
+          797  798  Hoopa Confined  Psychic  Ghost  80     110       60      150   
+          798  799   Hoopa Unbound  Psychic   Dark  80     160       60      170   
+          799  800       Volcanion     Fire  Water  80     110      120      130   
+          
+               Sp. Def  Speed  Generation  Legendary  
+          795      150     50           6       True  
+          796      110    110           6       True  
+          797      130     70           6       True  
+          798      130     80           6       True  
+          799       90     70           6       True  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{} columns gives column names of features}
+          \PY{n}{data}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:} Index(['\#', 'Name', 'Type 1', 'Type 2', 'HP', 'Attack', 'Defense', 'Sp. Atk',
+                 'Sp. Def', 'Speed', 'Generation', 'Legendary'],
+                dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{c+c1}{\PYZsh{} shape gives number of rows and columns in a tuble}
+          \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}105}]:} (800, 12)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{c+c1}{\PYZsh{} info gives data type like dataframe, number of sample or row, number of feature or column, feature types and memory usage}
+          \PY{n}{data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 800 entries, 0 to 799
+Data columns (total 12 columns):
+\#             800 non-null int64
+Name          799 non-null object
+Type 1        800 non-null object
+Type 2        414 non-null object
+HP            800 non-null int64
+Attack        800 non-null int64
+Defense       800 non-null int64
+Sp. Atk       800 non-null int64
+Sp. Def       800 non-null int64
+Speed         800 non-null int64
+Generation    800 non-null int64
+Legendary     800 non-null bool
+dtypes: bool(1), int64(8), object(3)
+memory usage: 69.6+ KB
+
+    \end{Verbatim}
+
+    \hypertarget{explotary-data-analysis}{%
+\subsubsection{EXPLOTARY DATA ANALYSIS}\label{explotary-data-analysis}}
+
+value\_counts(): Frequency counts outliers: the value that is
+considerably higher or lower from rest of the data * Lets say value at
+75\% is Q3 and value at 25\% is Q1. * Outlier are smaller than Q1 -
+1.5(Q3-Q1) and bigger than Q3 + 1.5(Q3-Q1) We will use describe()
+method. Describe method includes: * count: number of entries * mean:
+average of entries * std: standart deviation * min: minimum entry *
+25\%: first quantile * 50\%: median or second quantile * 75\%: third
+quantile * max: maximum entry
+
+ What is quantile?
+
+\begin{itemize}
+\item
+  1,4,5,6,8,9,11,12,13,14,15,16,17
+\item
+  The median is the number that is in \textbf{middle} of the sequence.
+  In this case it would be 11.
+\item
+  The lower quartile is the median in between the smallest number and
+  the median i.e.~in between 1 and 11, which is 6.
+\item
+  The upper quartile, you find the median between the median and the
+  largest number i.e.~between 11 and 17, which will be 14 according to
+  the question above.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{c+c1}{\PYZsh{} For example lets look frequency of pokemom types}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{dropna} \PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} if there are nan values that also be counted}
+          \PY{c+c1}{\PYZsh{} As it can be seen below there are 112 water pokemon or 70 grass pokemon}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Water       112
+Normal       98
+Grass        70
+Bug          69
+Psychic      57
+Fire         52
+Electric     44
+Rock         44
+Ground       32
+Ghost        32
+Dragon       32
+Dark         31
+Poison       28
+Fighting     27
+Steel        27
+Ice          24
+Fairy        17
+Flying        4
+Name: Type 1, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{datatmp} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{pmtype} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{datatmp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{pmtype} \PY{o}{=} \PY{n}{pmtype}\PY{o}{.}\PY{n}{union}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{datatmp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{pmtype}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Water', 'Fighting', 'Ghost', 'Steel', 'Psychic', 'Fairy', 'Flying', 'Ground', 'Dragon', 'Grass', 'Poison', 'Bug', 'Normal', 'Electric', 'Fire', 'Dark', 'Rock', 'Ice'\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pmtype}\PY{p}{)}\PY{p}{:} \PY{n}{datatmp}\PY{p}{[}\PY{n}{s}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{datatmp}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{datatmp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/ayim/Desktop/virenv/lib/python3.6/site-packages/ipykernel\_launcher.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}    \#           Name Type 1  Type 2  Water  Fighting  Ghost  Steel  Psychic  \textbackslash{}
+         0  1      Bulbasaur  Grass  Poison      0         0      0      0        0   
+         1  2        Ivysaur  Grass  Poison      0         0      0      0        0   
+         2  3       Venusaur  Grass  Poison      0         0      0      0        0   
+         3  4  Mega Venusaur  Grass  Poison      0         0      0      0        0   
+         4  5     Charmander   Fire     NaN      0         0      0      0        0   
+         
+            Fairy {\ldots}   Dragon  Grass  Poison  Bug  Normal  Electric  Fire  Dark  Rock  \textbackslash{}
+         0      0 {\ldots}        0      0       0    0       0         0     0     0     0   
+         1      0 {\ldots}        0      0       0    0       0         0     0     0     0   
+         2      0 {\ldots}        0      0       0    0       0         0     0     0     0   
+         3      0 {\ldots}        0      0       0    0       0         0     0     0     0   
+         4      0 {\ldots}        0      0       0    0       0         0     0     0     0   
+         
+            Ice  
+         0    0  
+         1    0  
+         2    0  
+         3    0  
+         4    0  
+         
+         [5 rows x 22 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{datatmp}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{:} \PY{k}{continue}
+             \PY{k}{else}\PY{p}{:} \PY{n}{datatmp}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{datatmp}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{:} \PY{k}{continue}
+             \PY{k}{else}\PY{p}{:} \PY{n}{datatmp}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 
+         \PY{n}{datatmp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/ayim/Desktop/virenv/lib/python3.6/site-packages/ipykernel\_launcher.py:3: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+  This is separate from the ipykernel package so we can avoid doing imports until
+/Users/ayim/Desktop/virenv/lib/python3.6/site-packages/ipykernel\_launcher.py:7: FutureWarning: set\_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead
+  import sys
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}    \#           Name Type 1  Type 2  Water  Fighting  Ghost  Steel  Psychic  \textbackslash{}
+         0  1      Bulbasaur  Grass  Poison      0         0      0      0        0   
+         1  2        Ivysaur  Grass  Poison      0         0      0      0        0   
+         2  3       Venusaur  Grass  Poison      0         0      0      0        0   
+         3  4  Mega Venusaur  Grass  Poison      0         0      0      0        0   
+         4  5     Charmander   Fire     NaN      0         0      0      0        0   
+         
+            Fairy {\ldots}   Dragon  Grass  Poison  Bug  Normal  Electric  Fire  Dark  Rock  \textbackslash{}
+         0      0 {\ldots}        0      1       1    0       0         0     0     0     0   
+         1      0 {\ldots}        0      1       1    0       0         0     0     0     0   
+         2      0 {\ldots}        0      1       1    0       0         0     0     0     0   
+         3      0 {\ldots}        0      1       1    0       0         0     0     0     0   
+         4      0 {\ldots}        0      0       0    0       0         0     1     0     0   
+         
+            Ice  
+         0    0  
+         1    0  
+         2    0  
+         3    0  
+         4    0  
+         
+         [5 rows x 22 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} For example max HP is 255 or min defense is 5}
+         \PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}ignore null entries}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}               \#          HP      Attack     Defense     Sp. Atk     Sp. Def  \textbackslash{}
+         count  800.0000  800.000000  800.000000  800.000000  800.000000  800.000000   
+         mean   400.5000   69.258750   79.001250   73.842500   72.820000   71.902500   
+         std    231.0844   25.534669   32.457366   31.183501   32.722294   27.828916   
+         min      1.0000    1.000000    5.000000    5.000000   10.000000   20.000000   
+         25\%    200.7500   50.000000   55.000000   50.000000   49.750000   50.000000   
+         50\%    400.5000   65.000000   75.000000   70.000000   65.000000   70.000000   
+         75\%    600.2500   80.000000  100.000000   90.000000   95.000000   90.000000   
+         max    800.0000  255.000000  190.000000  230.000000  194.000000  230.000000   
+         
+                     Speed  Generation  
+         count  800.000000   800.00000  
+         mean    68.277500     3.32375  
+         std     29.060474     1.66129  
+         min      5.000000     1.00000  
+         25\%     45.000000     2.00000  
+         50\%     65.000000     3.00000  
+         75\%     90.000000     5.00000  
+         max    180.000000     6.00000  
+\end{Verbatim}
+            
+    \#\#\#VISUAL EXPLORATORY DATA ANALYSIS * Box plots: visualize basic
+statistics like outliers, min/max or quantiles
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} For example: compare attack of pokemons that are legendary  or not}
+         \PY{c+c1}{\PYZsh{} Black line at top is max}
+         \PY{c+c1}{\PYZsh{} Blue line at top is 75\PYZpc{}}
+         \PY{c+c1}{\PYZsh{} Red line is median (50\PYZpc{})}
+         \PY{c+c1}{\PYZsh{} Blue line at bottom is 25\PYZpc{}}
+         \PY{c+c1}{\PYZsh{} Black line at bottom is min}
+         \PY{c+c1}{\PYZsh{} There are no outliers}
+         \PY{n}{data}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{column}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Legendary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x10bc4c2b0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{tidy-data}{%
+\subsubsection{TIDY DATA}\label{tidy-data}}
+
+We tidy data with melt(). Describing melt is confusing. Therefore lets
+make example to understand it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Firstly I create new data from pokemons data to explain melt nore easily.}
+         \PY{n}{data\PYZus{}new} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}    \PY{c+c1}{\PYZsh{} I only take 5 rows into new data}
+         \PY{n}{data\PYZus{}new}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}    \#           Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+         0  1      Bulbasaur  Grass  Poison  45      49       49       65       65   
+         1  2        Ivysaur  Grass  Poison  60      62       63       80       80   
+         2  3       Venusaur  Grass  Poison  80      82       83      100      100   
+         3  4  Mega Venusaur  Grass  Poison  80     100      123      122      120   
+         4  5     Charmander   Fire     NaN  39      52       43       60       50   
+         
+            Speed  Generation  Legendary  
+         0     45           1      False  
+         1     60           1      False  
+         2     80           1      False  
+         3     80           1      False  
+         4     65           1      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} lets melt}
+         \PY{c+c1}{\PYZsh{} id\PYZus{}vars = what we do not wish to melt}
+         \PY{c+c1}{\PYZsh{} value\PYZus{}vars = what we want to melt}
+         \PY{n}{melted} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{frame}\PY{o}{=}\PY{n}{data\PYZus{}new}\PY{p}{,}\PY{n}{id\PYZus{}vars} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value\PYZus{}vars}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{melted}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}             Name variable  value
+         0      Bulbasaur   Attack     49
+         1        Ivysaur   Attack     62
+         2       Venusaur   Attack     82
+         3  Mega Venusaur   Attack    100
+         4     Charmander   Attack     52
+         5      Bulbasaur  Defense     49
+         6        Ivysaur  Defense     63
+         7       Venusaur  Defense     83
+         8  Mega Venusaur  Defense    123
+         9     Charmander  Defense     43
+\end{Verbatim}
+            
+    \hypertarget{pivoting-data}{%
+\subsubsection{PIVOTING DATA}\label{pivoting-data}}
+
+Reverse of melting.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Index is name}
+         \PY{c+c1}{\PYZsh{} I want to make that columns are variable}
+         \PY{c+c1}{\PYZsh{} Finally values in columns are value}
+         \PY{n}{melted}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} variable       Attack  Defense
+         Name                          
+         Bulbasaur          49       49
+         Charmander         52       43
+         Ivysaur            62       63
+         Mega Venusaur     100      123
+         Venusaur           82       83
+\end{Verbatim}
+            
+    \hypertarget{concatenating-data}{%
+\subsubsection{CONCATENATING DATA}\label{concatenating-data}}
+
+We can concatenate two dataframe
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} Firstly lets create 2 data frame}
+         \PY{n}{data1} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data2}\PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+         \PY{n}{conc\PYZus{}data\PYZus{}row} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{data1}\PY{p}{,}\PY{n}{data2}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{ignore\PYZus{}index} \PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} axis = 0 : adds dataframes in row}
+         \PY{n}{conc\PYZus{}data\PYZus{}row}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}      \#            Name   Type 1  Type 2  HP  Attack  Defense  Sp. Atk  \textbackslash{}
+         0    1       Bulbasaur    Grass  Poison  45      49       49       65   
+         1    2         Ivysaur    Grass  Poison  60      62       63       80   
+         2    3        Venusaur    Grass  Poison  80      82       83      100   
+         3    4   Mega Venusaur    Grass  Poison  80     100      123      122   
+         4    5      Charmander     Fire     NaN  39      52       43       60   
+         5  796         Diancie     Rock   Fairy  50     100      150      100   
+         6  797    Mega Diancie     Rock   Fairy  50     160      110      160   
+         7  798  Hoopa Confined  Psychic   Ghost  80     110       60      150   
+         8  799   Hoopa Unbound  Psychic    Dark  80     160       60      170   
+         9  800       Volcanion     Fire   Water  80     110      120      130   
+         
+            Sp. Def  Speed  Generation  Legendary  
+         0       65     45           1      False  
+         1       80     60           1      False  
+         2      100     80           1      False  
+         3      120     80           1      False  
+         4       50     65           1      False  
+         5      150     50           6       True  
+         6      110    110           6       True  
+         7      130     70           6       True  
+         8      130     80           6       True  
+         9       90     70           6       True  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{data1} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Attack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data2}\PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Defense}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n}{conc\PYZus{}data\PYZus{}col} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{data1}\PY{p}{,}\PY{n}{data2}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} axis = 0 : adds dataframes in row}
+         \PY{n}{conc\PYZus{}data\PYZus{}col}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}    Attack  Defense
+         0      49       49
+         1      62       63
+         2      82       83
+         3     100      123
+         4      52       43
+\end{Verbatim}
+            
+    \hypertarget{data-types}{%
+\subsubsection{DATA TYPES}\label{data-types}}
+
+There are 5 basic data types: object(string),booleab, integer, float and
+categorical. We can make conversion data types like from str to
+categorical or from int to float Why is category important: * make
+dataframe smaller in memory * can be utilized for anlaysis especially
+for sklear(we will learn later)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} \#              int64
+         Name          object
+         Type 1        object
+         Type 2        object
+         HP             int64
+         Attack         int64
+         Defense        int64
+         Sp. Atk        int64
+         Sp. Def        int64
+         Speed          int64
+         Generation     int64
+         Legendary       bool
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} lets convert object(str) to categorical and int to float.}
+         \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} As you can see Type 1 is converted from object to categorical}
+         \PY{c+c1}{\PYZsh{} And Speed ,s converted from int to float}
+         \PY{n}{data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} \#                int64
+         Name            object
+         Type 1        category
+         Type 2          object
+         HP               int64
+         Attack           int64
+         Defense          int64
+         Sp. Atk          int64
+         Sp. Def          int64
+         Speed          float64
+         Generation       int64
+         Legendary         bool
+         dtype: object
+\end{Verbatim}
+            
+    \hypertarget{missing-data-and-testing-with-assert}{%
+\subsubsection{MISSING DATA and TESTING WITH
+ASSERT}\label{missing-data-and-testing-with-assert}}
+
+If we encounter with missing data, what we can do: * leave as is * drop
+them with dropna() * fill missing value with fillna() * fill missing
+values with test statistics like mean Assert statement: check that you
+can turn on or turn off when you are done with your testing of the
+program
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} Lets look at does pokemon data have nan value}
+         \PY{c+c1}{\PYZsh{} As you can see there are 800 entries. However Type 2 has 414 non\PYZhy{}null object so it has 386 null object.}
+         \PY{n}{data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 800 entries, 0 to 799
+Data columns (total 12 columns):
+\#             800 non-null int64
+Name          799 non-null object
+Type 1        800 non-null object
+Type 2        414 non-null object
+HP            800 non-null int64
+Attack        800 non-null int64
+Defense       800 non-null int64
+Sp. Atk       800 non-null int64
+Sp. Def       800 non-null int64
+Speed         800 non-null int64
+Generation    800 non-null int64
+Legendary     800 non-null bool
+dtypes: bool(1), int64(8), object(3)
+memory usage: 69.6+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{} Lets chech Type 2}
+         \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{dropna} \PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} As you can see, there are 386 NAN value}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} NaN         386
+         Flying       97
+         Ground       35
+         Poison       34
+         Psychic      33
+         Fighting     26
+         Grass        25
+         Fairy        23
+         Steel        22
+         Dark         20
+         Dragon       18
+         Ice          14
+         Water        14
+         Ghost        14
+         Rock         14
+         Fire         12
+         Electric      6
+         Normal        4
+         Bug           3
+         Name: Type 2, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} Lets drop nan values}
+         \PY{n}{data1}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}   \PY{c+c1}{\PYZsh{} also we will use data to fill missing value so I assign it to data1 variable}
+         \PY{n}{data1}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}  \PY{c+c1}{\PYZsh{} inplace = True means we do not assign it to new variable. Changes automatically assigned to data}
+         \PY{c+c1}{\PYZsh{} So does it work ?}
+         \PY{n}{data1}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 414 entries, 0 to 799
+Data columns (total 12 columns):
+\#             414 non-null int64
+Name          414 non-null object
+Type 1        414 non-null object
+Type 2        414 non-null object
+HP            414 non-null int64
+Attack        414 non-null int64
+Defense       414 non-null int64
+Sp. Atk       414 non-null int64
+Sp. Def       414 non-null int64
+Speed         414 non-null int64
+Generation    414 non-null int64
+Legendary     414 non-null bool
+dtypes: bool(1), int64(8), object(3)
+memory usage: 39.2+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{}  Lets check with assert statement}
+         \PY{c+c1}{\PYZsh{} Assert statement:}
+         \PY{k}{assert} \PY{l+m+mi}{1}\PY{o}{==}\PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} return nothing because it is true}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} In order to run all code, we need to make this line comment}
+         \PY{c+c1}{\PYZsh{} assert 1==2 \PYZsh{} return error because it is false}
+         \PY{k}{assert} \PY{n}{data1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{all}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{data2} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{empty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:}    \#           Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  \textbackslash{}
+         0  1      Bulbasaur  Grass  Poison  45      49       49       65       65   
+         1  2        Ivysaur  Grass  Poison  60      62       63       80       80   
+         2  3       Venusaur  Grass  Poison  80      82       83      100      100   
+         3  4  Mega Venusaur  Grass  Poison  80     100      123      122      120   
+         4  5     Charmander   Fire   empty  39      52       43       60       50   
+         
+            Speed  Generation  Legendary  
+         0     45           1      False  
+         1     60           1      False  
+         2     80           1      False  
+         3     80           1      False  
+         4     65           1      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{k}{assert} \PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{all}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} returns nothing because we drop nan values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} \PYZsh{} With assert statement we can check a lot of thing. For example}
+        \PY{c+c1}{\PYZsh{} assert data.columns[1] == \PYZsq{}Name\PYZsq{}}
+        \PY{c+c1}{\PYZsh{} assert data.Speed.dtypes == np.int}
+\end{Verbatim}
+
+
+    In this part, you learn: * Diagnose data for cleaning * Explotary data
+analysis * Visual exploratory data analysis * Tidy data * Pivoting data
+* Concatenating data * Data types * Missing data and testing with assert
+
+    \hypertarget{pandas-foundation}{%
+\section{4. PANDAS FOUNDATION}\label{pandas-foundation}}
+
+    \hypertarget{review-of-pandas}{%
+\subsubsection{REVİEW of PANDAS}\label{review-of-pandas}}
+
+As you notice, I do not give all idea in a same time. Although, we learn
+some basics of pandas, we will go deeper in pandas. * single column =
+series * NaN = not a number * dataframe.values = numpy
+
+    \hypertarget{building-data-frames-from-scratch}{%
+\subsubsection{BUILDING DATA FRAMES FROM
+SCRATCH}\label{building-data-frames-from-scratch}}
+
+\begin{itemize}
+\tightlist
+\item
+  We can build data frames from csv as we did earlier.
+\item
+  Also we can build dataframe from dictionaries
+
+  \begin{itemize}
+  \tightlist
+  \item
+    zip() method: This function returns a list of tuples, where the i-th
+    tuple contains the i-th element from each of the argument sequences
+    or iterables.
+  \end{itemize}
+\item
+  Adding new column
+\item
+  Broadcasting: Create new column and assign a value to entire column
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{c+c1}{\PYZsh{} data frames from dictionary}
+          \PY{n}{country} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spain}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{France}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{population} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{list\PYZus{}label} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{population}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{list\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{n}{country}\PY{p}{,}\PY{n}{population}\PY{p}{]}
+          \PY{n}{zipped} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{list\PYZus{}label}\PY{p}{,}\PY{n}{list\PYZus{}col}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{[}\PY{n}{z} \PY{k}{for} \PY{n}{z} \PY{o+ow}{in} \PY{n}{zipped}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}
+          \PY{n}{data\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{zipped}\PY{p}{)}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}
+          \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[('country', ['Spain', 'France']), ('population', ['11', '12'])]
+\{'country': ['Spain', 'France'], 'population': ['11', '12']\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:} Empty DataFrame
+          Columns: []
+          Index: []
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Add new columns}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{capital}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{madrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{paris}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Broadcasting}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{income}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}Broadcasting entire column}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+    \hypertarget{visual-exploratory-data-analysis}{%
+\subsubsection{VISUAL EXPLORATORY DATA
+ANALYSIS}\label{visual-exploratory-data-analysis}}
+
+\begin{itemize}
+\tightlist
+\item
+  Plot
+\item
+  Subplot
+\item
+  Histogram:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    bins: number of bins
+  \item
+    range(tuble): min and max values of bins
+  \item
+    normed(boolean): normalize or not
+  \item
+    cumulative(boolean): compute cumulative distribution
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{c+c1}{\PYZsh{} Plotting all data }
+          \PY{n}{data1} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attack}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{data1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} it is confusing}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x10be62550>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_102_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{} subplots}
+          \PY{n}{data1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{subplots} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:} array([<matplotlib.axes.\_subplots.AxesSubplot object at 0x10bf70358>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x10bf09898>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x10bf30a58>],
+                dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{} scatter plot  }
+          \PY{n}{data1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scatter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attack}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x10c3edda0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{c+c1}{\PYZsh{} hist plot  }
+          \PY{c+c1}{\PYZsh{}data1.hist()}
+          \PY{c+c1}{\PYZsh{}data1.plot(kind = \PYZdq{}hist\PYZdq{},y = \PYZdq{}Defense\PYZdq{},bins = 50,range= (0,250))}
+          \PY{c+c1}{\PYZsh{}data1.plot(kind=\PYZdq{}hist\PYZdq{},stacked=True)}
+          \PY{n}{data1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:} array([<matplotlib.axes.\_subplots.AxesSubplot object at 0x10de2d048>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x10dd9d470>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x10ddc59e8>],
+                dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_105_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{c+c1}{\PYZsh{} histogram subplot with non cumulative and cumulative}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{data1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,}\PY{n+nb}{range}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{250}\PY{p}{)}\PY{p}{,}\PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{data1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,}\PY{n+nb}{range}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{250}\PY{p}{)}\PY{p}{,}\PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cumulative} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/ayim/Desktop/virenv/lib/python3.6/site-packages/matplotlib/axes/\_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
+  warnings.warn("The 'normed' kwarg is deprecated, and has been "
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x10dfd4320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{statistical-exploratory-data-analysis}{%
+\subsubsection{STATISTICAL EXPLORATORY DATA
+ANALYSIS}\label{statistical-exploratory-data-analysis}}
+
+I already explained it at previous parts. However lets look at one more
+time. * count: number of entries * mean: average of entries * std:
+standart deviation * min: minimum entry * 25\%: first quantile * 50\%:
+median or second quantile * 75\%: third quantile * max: maximum entry
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:}               \#          HP      Attack     Defense     Sp. Atk     Sp. Def  \textbackslash{}
+          count  800.0000  800.000000  800.000000  800.000000  800.000000  800.000000   
+          mean   400.5000   69.258750   79.001250   73.842500   72.820000   71.902500   
+          std    231.0844   25.534669   32.457366   31.183501   32.722294   27.828916   
+          min      1.0000    1.000000    5.000000    5.000000   10.000000   20.000000   
+          25\%    200.7500   50.000000   55.000000   50.000000   49.750000   50.000000   
+          50\%    400.5000   65.000000   75.000000   70.000000   65.000000   70.000000   
+          75\%    600.2500   80.000000  100.000000   90.000000   95.000000   90.000000   
+          max    800.0000  255.000000  190.000000  230.000000  194.000000  230.000000   
+          
+                      Speed  Generation  
+          count  800.000000   800.00000  
+          mean    68.277500     3.32375  
+          std     29.060474     1.66129  
+          min      5.000000     1.00000  
+          25\%     45.000000     2.00000  
+          50\%     65.000000     3.00000  
+          75\%     90.000000     5.00000  
+          max    180.000000     6.00000  
+\end{Verbatim}
+            
+    \hypertarget{indexing-pandas-time-series}{%
+\subsubsection{INDEXING PANDAS TIME
+SERIES}\label{indexing-pandas-time-series}}
+
+\begin{itemize}
+\tightlist
+\item
+  datetime = object
+\item
+  parse\_dates(boolean): Transform date to ISO 8601 (yyyy-mm-dd hh:mm:ss
+  ) format
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{time\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1992\PYZhy{}03\PYZhy{}08}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1992\PYZhy{}04\PYZhy{}12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{time\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} As you can see date is string}
+          \PY{c+c1}{\PYZsh{} however we want it to be datetime object}
+          \PY{n}{datetime\PYZus{}object} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{time\PYZus{}list}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{datetime\PYZus{}object}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{datetime\PYZus{}object}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'str'>
+<class 'pandas.core.indexes.datetimes.DatetimeIndex'>
+DatetimeIndex(['1992-03-08', '1992-04-12'], dtype='datetime64[ns]', freq=None)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{} In order to practice lets take head of pokemon data and add it a time list}
+          \PY{n}{data2} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+          \PY{n}{date\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1992\PYZhy{}01\PYZhy{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1992\PYZhy{}02\PYZhy{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1992\PYZhy{}03\PYZhy{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1993\PYZhy{}03\PYZhy{}15}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1993\PYZhy{}03\PYZhy{}16}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{datetime\PYZus{}object} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{date\PYZus{}list}\PY{p}{)}
+          \PY{n}{data2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{datetime\PYZus{}object}
+          \PY{c+c1}{\PYZsh{} lets make date as index}
+          \PY{n}{data2}\PY{o}{=} \PY{n}{data2}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{data2} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/ayim/Desktop/virenv/lib/python3.6/site-packages/ipykernel\_launcher.py:5: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  """
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}126}]:}             \#           Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  \textbackslash{}
+          date                                                                        
+          1992-01-10  1      Bulbasaur  Grass  Poison  45      49       49       65   
+          1992-02-10  2        Ivysaur  Grass  Poison  60      62       63       80   
+          1992-03-10  3       Venusaur  Grass  Poison  80      82       83      100   
+          1993-03-15  4  Mega Venusaur  Grass  Poison  80     100      123      122   
+          1993-03-16  5     Charmander   Fire     NaN  39      52       43       60   
+          
+                      Sp. Def  Speed  Generation  Legendary  
+          date                                               
+          1992-01-10       65     45           1      False  
+          1992-02-10       80     60           1      False  
+          1992-03-10      100     80           1      False  
+          1993-03-15      120     80           1      False  
+          1993-03-16       50     65           1      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{c+c1}{\PYZsh{} Now we can select according to our date index}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{data2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1993\PYZhy{}03\PYZhy{}16}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{data2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1992\PYZhy{}03\PYZhy{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1993\PYZhy{}03\PYZhy{}16}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\#                      5
+Name          Charmander
+Type 1              Fire
+Type 2               NaN
+HP                    39
+Attack                52
+Defense               43
+Sp. Atk               60
+Sp. Def               50
+Speed                 65
+Generation             1
+Legendary          False
+Name: 1993-03-16 00:00:00, dtype: object
+            \#           Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  \textbackslash{}
+date                                                                        
+1992-03-10  3       Venusaur  Grass  Poison  80      82       83      100   
+1993-03-15  4  Mega Venusaur  Grass  Poison  80     100      123      122   
+1993-03-16  5     Charmander   Fire     NaN  39      52       43       60   
+
+            Sp. Def  Speed  Generation  Legendary  
+date                                               
+1992-03-10      100     80           1      False  
+1993-03-15      120     80           1      False  
+1993-03-16       50     65           1      False  
+
+    \end{Verbatim}
+
+    \hypertarget{resampling-pandas-time-series}{%
+\subsubsection{RESAMPLING PANDAS TIME
+SERIES}\label{resampling-pandas-time-series}}
+
+\begin{itemize}
+\tightlist
+\item
+  Resampling: statistical method over different time intervals
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Needs string to specify frequency like ``M'' = month or ``A'' = year
+  \end{itemize}
+\item
+  Downsampling: reduce date time rows to slower frequency like from
+  daily to weekly
+\item
+  Upsampling: increase date time rows to faster frequency like from
+  daily to hourly
+\item
+  Interpolate: Interpolate values according to different methods like
+  `linear', `time' or index'
+
+  \begin{itemize}
+  \tightlist
+  \item
+    https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.interpolate.html
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{c+c1}{\PYZsh{} We will use data2 that we create at previous part}
+          \PY{n}{data2}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:}               \#         HP     Attack  Defense    Sp. Atk    Sp. Def  \textbackslash{}
+          date                                                                   
+          1992-12-31  2.0  61.666667  64.333333     65.0  81.666667  81.666667   
+          1993-12-31  4.5  59.500000  76.000000     83.0  91.000000  85.000000   
+          
+                          Speed  Generation  Legendary  
+          date                                          
+          1992-12-31  61.666667         1.0      False  
+          1993-12-31  72.500000         1.0      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{c+c1}{\PYZsh{} Lets resample with month}
+          \PY{n}{data2}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} As you can see there are a lot of nan because data2 does not include all months}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:}               \#    HP  Attack  Defense  Sp. Atk  Sp. Def  Speed  Generation  \textbackslash{}
+          date                                                                          
+          1992-01-31  1.0  45.0    49.0     49.0     65.0     65.0   45.0         1.0   
+          1992-02-29  2.0  60.0    62.0     63.0     80.0     80.0   60.0         1.0   
+          1992-03-31  3.0  80.0    82.0     83.0    100.0    100.0   80.0         1.0   
+          1992-04-30  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-05-31  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-06-30  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-07-31  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-08-31  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-09-30  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-10-31  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-11-30  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1992-12-31  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1993-01-31  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1993-02-28  NaN   NaN     NaN      NaN      NaN      NaN    NaN         NaN   
+          1993-03-31  4.5  59.5    76.0     83.0     91.0     85.0   72.5         1.0   
+          
+                      Legendary  
+          date                   
+          1992-01-31        0.0  
+          1992-02-29        0.0  
+          1992-03-31        0.0  
+          1992-04-30        NaN  
+          1992-05-31        NaN  
+          1992-06-30        NaN  
+          1992-07-31        NaN  
+          1992-08-31        NaN  
+          1992-09-30        NaN  
+          1992-10-31        NaN  
+          1992-11-30        NaN  
+          1992-12-31        NaN  
+          1993-01-31        NaN  
+          1993-02-28        NaN  
+          1993-03-31        0.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{c+c1}{\PYZsh{} In real life (data is real. Not created from us like data2) we can solve this problem with interpolate}
+          \PY{c+c1}{\PYZsh{} We can interpolete from first value}
+          \PY{n}{data2}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{first}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}133}]:}                    \#           Name Type 1  Type 2    HP  Attack     Defense  \textbackslash{}
+          date                                                                           
+          1992-01-31  1.000000      Bulbasaur  Grass  Poison  45.0    49.0   49.000000   
+          1992-02-29  2.000000        Ivysaur  Grass  Poison  60.0    62.0   63.000000   
+          1992-03-31  3.000000       Venusaur  Grass  Poison  80.0    82.0   83.000000   
+          1992-04-30  3.083333            NaN    NaN     NaN  80.0    83.5   86.333333   
+          1992-05-31  3.166667            NaN    NaN     NaN  80.0    85.0   89.666667   
+          1992-06-30  3.250000            NaN    NaN     NaN  80.0    86.5   93.000000   
+          1992-07-31  3.333333            NaN    NaN     NaN  80.0    88.0   96.333333   
+          1992-08-31  3.416667            NaN    NaN     NaN  80.0    89.5   99.666667   
+          1992-09-30  3.500000            NaN    NaN     NaN  80.0    91.0  103.000000   
+          1992-10-31  3.583333            NaN    NaN     NaN  80.0    92.5  106.333333   
+          1992-11-30  3.666667            NaN    NaN     NaN  80.0    94.0  109.666667   
+          1992-12-31  3.750000            NaN    NaN     NaN  80.0    95.5  113.000000   
+          1993-01-31  3.833333            NaN    NaN     NaN  80.0    97.0  116.333333   
+          1993-02-28  3.916667            NaN    NaN     NaN  80.0    98.5  119.666667   
+          1993-03-31  4.000000  Mega Venusaur  Grass  Poison  80.0   100.0  123.000000   
+          
+                         Sp. Atk     Sp. Def  Speed  Generation Legendary  
+          date                                                             
+          1992-01-31   65.000000   65.000000   45.0         1.0     False  
+          1992-02-29   80.000000   80.000000   60.0         1.0     False  
+          1992-03-31  100.000000  100.000000   80.0         1.0     False  
+          1992-04-30  101.833333  101.666667   80.0         1.0       NaN  
+          1992-05-31  103.666667  103.333333   80.0         1.0       NaN  
+          1992-06-30  105.500000  105.000000   80.0         1.0       NaN  
+          1992-07-31  107.333333  106.666667   80.0         1.0       NaN  
+          1992-08-31  109.166667  108.333333   80.0         1.0       NaN  
+          1992-09-30  111.000000  110.000000   80.0         1.0       NaN  
+          1992-10-31  112.833333  111.666667   80.0         1.0       NaN  
+          1992-11-30  114.666667  113.333333   80.0         1.0       NaN  
+          1992-12-31  116.500000  115.000000   80.0         1.0       NaN  
+          1993-01-31  118.333333  116.666667   80.0         1.0       NaN  
+          1993-02-28  120.166667  118.333333   80.0         1.0       NaN  
+          1993-03-31  122.000000  120.000000   80.0         1.0     False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{c+c1}{\PYZsh{} Or we can interpolate with mean()}
+          \PY{n}{data2}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}134}]:}                 \#         HP  Attack  Defense  Sp. Atk  Sp. Def   Speed  \textbackslash{}
+          date                                                                      
+          1992-01-31  1.000  45.000000    49.0     49.0    65.00    65.00  45.000   
+          1992-02-29  2.000  60.000000    62.0     63.0    80.00    80.00  60.000   
+          1992-03-31  3.000  80.000000    82.0     83.0   100.00   100.00  80.000   
+          1992-04-30  3.125  78.291667    81.5     83.0    99.25    98.75  79.375   
+          1992-05-31  3.250  76.583333    81.0     83.0    98.50    97.50  78.750   
+          1992-06-30  3.375  74.875000    80.5     83.0    97.75    96.25  78.125   
+          1992-07-31  3.500  73.166667    80.0     83.0    97.00    95.00  77.500   
+          1992-08-31  3.625  71.458333    79.5     83.0    96.25    93.75  76.875   
+          1992-09-30  3.750  69.750000    79.0     83.0    95.50    92.50  76.250   
+          1992-10-31  3.875  68.041667    78.5     83.0    94.75    91.25  75.625   
+          1992-11-30  4.000  66.333333    78.0     83.0    94.00    90.00  75.000   
+          1992-12-31  4.125  64.625000    77.5     83.0    93.25    88.75  74.375   
+          1993-01-31  4.250  62.916667    77.0     83.0    92.50    87.50  73.750   
+          1993-02-28  4.375  61.208333    76.5     83.0    91.75    86.25  73.125   
+          1993-03-31  4.500  59.500000    76.0     83.0    91.00    85.00  72.500   
+          
+                      Generation  Legendary  
+          date                               
+          1992-01-31         1.0        0.0  
+          1992-02-29         1.0        0.0  
+          1992-03-31         1.0        0.0  
+          1992-04-30         1.0        0.0  
+          1992-05-31         1.0        0.0  
+          1992-06-30         1.0        0.0  
+          1992-07-31         1.0        0.0  
+          1992-08-31         1.0        0.0  
+          1992-09-30         1.0        0.0  
+          1992-10-31         1.0        0.0  
+          1992-11-30         1.0        0.0  
+          1992-12-31         1.0        0.0  
+          1993-01-31         1.0        0.0  
+          1993-02-28         1.0        0.0  
+          1993-03-31         1.0        0.0  
+\end{Verbatim}
+            
+    \hypertarget{manipulating-data-frames-with-pandas}{%
+\section{MANIPULATING DATA FRAMES WITH
+PANDAS}\label{manipulating-data-frames-with-pandas}}
+
+    \hypertarget{indexing-data-frames}{%
+\subsubsection{INDEXING DATA FRAMES}\label{indexing-data-frames}}
+
+\begin{itemize}
+\tightlist
+\item
+  Indexing using square brackets
+\item
+  Using column attribute and row label
+\item
+  Using loc accessor
+\item
+  Selecting only some columns
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{c+c1}{\PYZsh{} read data}
+          \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../input/pokemon.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{data}\PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:}             Name Type 1  Type 2  HP  Attack  Defense  Sp. Atk  Sp. Def  Speed  \textbackslash{}
+          \#                                                                               
+          1      Bulbasaur  Grass  Poison  45      49       49       65       65     45   
+          2        Ivysaur  Grass  Poison  60      62       63       80       80     60   
+          3       Venusaur  Grass  Poison  80      82       83      100      100     80   
+          4  Mega Venusaur  Grass  Poison  80     100      123      122      120     80   
+          5     Charmander   Fire     NaN  39      52       43       60       50     65   
+          
+             Generation  Legendary  
+          \#                         
+          1           1      False  
+          2           1      False  
+          3           1      False  
+          4           1      False  
+          5           1      False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{c+c1}{\PYZsh{} indexing using square brackets}
+          \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}136}]:} 45
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{c+c1}{\PYZsh{} using column attribute and row label}
+          \PY{n}{data}\PY{o}{.}\PY{n}{HP}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}137}]:} 45
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{c+c1}{\PYZsh{} using loc accessor}
+          \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}138}]:} HP    45
+          Name: 1, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{c+c1}{\PYZsh{} Selecting only some columns}
+          \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Attack}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}139}]:}       HP  Attack
+          \#               
+          1     45      49
+          2     60      62
+          3     80      82
+          4     80     100
+          5     39      52
+          6     58      64
+          7     78      84
+          8     78     130
+          9     78     104
+          10    44      48
+          11    59      63
+          12    79      83
+          13    79     103
+          14    45      30
+          15    50      20
+          16    60      45
+          17    40      35
+          18    45      25
+          19    65      90
+          20    65     150
+          21    40      45
+          22    63      60
+          23    83      80
+          24    83      80
+          25    30      56
+          26    55      81
+          27    40      60
+          28    65      90
+          29    35      60
+          30    60      85
+          ..   {\ldots}     {\ldots}
+          771   95      65
+          772   78      92
+          773   67      58
+          774   50      50
+          775   45      50
+          776   68      75
+          777   90     100
+          778   57      80
+          779   43      70
+          780   85     110
+          781   49      66
+          782   44      66
+          783   54      66
+          784   59      66
+          785   65      90
+          786   55      85
+          787   75      95
+          788   85     100
+          789   55      69
+          790   95     117
+          791   40      30
+          792   85      70
+          793  126     131
+          794  126     131
+          795  108     100
+          796   50     100
+          797   50     160
+          798   80     110
+          799   80     160
+          800   80     110
+          
+          [800 rows x 2 columns]
+\end{Verbatim}
+            
+    \hypertarget{slicing-data-frame}{%
+\subsubsection{SLICING DATA FRAME}\label{slicing-data-frame}}
+
+\begin{itemize}
+\tightlist
+\item
+  Difference between selecting columns
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Series and data frames
+  \end{itemize}
+\item
+  Slicing and indexing series
+\item
+  Reverse slicing
+\item
+  From something to end
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Difference between selecting columns: series and dataframes}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}     \PY{c+c1}{\PYZsh{} series}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}   \PY{c+c1}{\PYZsh{} data frames}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Slicing and indexing series}
+        \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}   \PY{c+c1}{\PYZsh{} 10 and \PYZdq{}Defense\PYZdq{} are inclusive}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Reverse slicing }
+        \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Defense}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} From something to end}
+        \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{]} 
+\end{Verbatim}
+
+
+    \hypertarget{filtering-data-frames}{%
+\subsubsection{FILTERING DATA FRAMES}\label{filtering-data-frames}}
+
+Creating boolean series Combining filters Filtering column based others
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Creating boolean series}
+        \PY{n}{boolean} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{HP} \PY{o}{\PYZgt{}} \PY{l+m+mi}{200}
+        \PY{n}{data}\PY{p}{[}\PY{n}{boolean}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Combining filters}
+        \PY{n}{first\PYZus{}filter} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{HP} \PY{o}{\PYZgt{}} \PY{l+m+mi}{150}
+        \PY{n}{second\PYZus{}filter} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{Speed} \PY{o}{\PYZgt{}} \PY{l+m+mi}{35}
+        \PY{n}{data}\PY{p}{[}\PY{n}{first\PYZus{}filter} \PY{o}{\PYZam{}} \PY{n}{second\PYZus{}filter}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Filtering column based others}
+        \PY{n}{data}\PY{o}{.}\PY{n}{HP}\PY{p}{[}\PY{n}{data}\PY{o}{.}\PY{n}{Speed}\PY{o}{\PYZlt{}}\PY{l+m+mi}{15}\PY{p}{]}
+\end{Verbatim}
+
+
+    \hypertarget{transforming-data}{%
+\subsubsection{TRANSFORMING DATA}\label{transforming-data}}
+
+\begin{itemize}
+\tightlist
+\item
+  Plain python functions
+\item
+  Lambda function: to apply arbitrary python function to every element
+\item
+  Defining column using other columns
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Plain python functions}
+        \PY{k}{def} \PY{n+nf}{div}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{n}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{n}{data}\PY{o}{.}\PY{n}{HP}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{div}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Or we can use lambda function}
+        \PY{n}{data}\PY{o}{.}\PY{n}{HP}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{n} \PY{p}{:} \PY{n}{n}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Defining column using other columns}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}power}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{Attack} \PY{o}{+} \PY{n}{data}\PY{o}{.}\PY{n}{Defense}
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{index-objects-and-labeled-data}{%
+\subsubsection{INDEX OBJECTS AND LABELED
+DATA}\label{index-objects-and-labeled-data}}
+
+index: sequence of label
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} our index name is this:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} lets change it}
+        \PY{n}{data}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{index\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Overwrite index}
+        \PY{c+c1}{\PYZsh{} if we want to modify index we need to change all of them.}
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} first copy of our data to data3 then change index }
+        \PY{n}{data3} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} lets make index start from 100. It is not remarkable change but it is just example}
+        \PY{n}{data3}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{900}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{data3}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} We can make one of the column as index. I actually did it at the beginning of manipulating data frames with pandas section}
+        \PY{c+c1}{\PYZsh{} It was like this}
+        \PY{c+c1}{\PYZsh{} data= data.set\PYZus{}index(\PYZdq{}\PYZsh{}\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} also you can use data.index = data[\PYZdq{}\PYZsh{}\PYZdq{}]}
+\end{Verbatim}
+
+
+    \hypertarget{hierarchical-indexing}{%
+\subsubsection{HIERARCHICAL INDEXING}\label{hierarchical-indexing}}
+
+\begin{itemize}
+\tightlist
+\item
+  Setting indexing
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} lets read data frame one more time to start from beginning}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../input/pokemon.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} As you can see there is index. However we want to set one or more column to be index}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Setting index : type 1 is outer type 2 is inner index}
+        \PY{n}{data1} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Type 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} 
+        \PY{n}{data1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} data1.loc[\PYZdq{}Fire\PYZdq{},\PYZdq{}Flying\PYZdq{}] \PYZsh{} howw to use indexes}
+\end{Verbatim}
+
+
+    \hypertarget{pivoting-data-frames}{%
+\subsubsection{PIVOTING DATA FRAMES}\label{pivoting-data-frames}}
+
+\begin{itemize}
+\tightlist
+\item
+  pivoting: reshape tool
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{response}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{72}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{]}\PY{p}{\PYZcb{}}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{dic}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    age gender  response treatment
+        0   15      F        10         A
+        1    4      M        45         A
+        2   72      F         5         A
+        3   65      M         9         B
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} pivoting}
+        \PY{n}{df}\PY{o}{.}\PY{n}{pivot}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{columns} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{values}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{response}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-5-88760be3cc73> in <module>()
+          1 \# pivoting
+    ----> 2 df.pivot(index="treatment",columns = "gender",values="response")
+    
+
+        \textasciitilde{}/Desktop/virenv/lib/python3.6/site-packages/pandas/core/frame.py in pivot(self, index, columns, values)
+       4380         """
+       4381         from pandas.core.reshape.reshape import pivot
+    -> 4382         return pivot(self, index=index, columns=columns, values=values)
+       4383 
+       4384     \_shared\_docs['pivot\_table'] = """
+
+
+        \textasciitilde{}/Desktop/virenv/lib/python3.6/site-packages/pandas/core/reshape/reshape.py in pivot(self, index, columns, values)
+        387         indexed = Series(self[values].values,
+        388                          index=MultiIndex.from\_arrays([index, self[columns]]))
+    --> 389         return indexed.unstack(columns)
+        390 
+        391 
+
+
+        \textasciitilde{}/Desktop/virenv/lib/python3.6/site-packages/pandas/core/series.py in unstack(self, level, fill\_value)
+       2222         """
+       2223         from pandas.core.reshape.reshape import unstack
+    -> 2224         return unstack(self, level, fill\_value)
+       2225 
+       2226     \# ----------------------------------------------------------------------
+
+
+        \textasciitilde{}/Desktop/virenv/lib/python3.6/site-packages/pandas/core/reshape/reshape.py in unstack(obj, level, fill\_value)
+        472     else:
+        473         unstacker = \_Unstacker(obj.values, obj.index, level=level,
+    --> 474                                fill\_value=fill\_value)
+        475         return unstacker.get\_result()
+        476 
+
+
+        \textasciitilde{}/Desktop/virenv/lib/python3.6/site-packages/pandas/core/reshape/reshape.py in \_\_init\_\_(self, values, index, level, value\_columns, fill\_value)
+        114 
+        115         self.\_make\_sorted\_values\_labels()
+    --> 116         self.\_make\_selectors()
+        117 
+        118     def \_make\_sorted\_values\_labels(self):
+
+
+        \textasciitilde{}/Desktop/virenv/lib/python3.6/site-packages/pandas/core/reshape/reshape.py in \_make\_selectors(self)
+        152 
+        153         if mask.sum() < len(self.index):
+    --> 154             raise ValueError('Index contains duplicate entries, '
+        155                              'cannot reshape')
+        156 
+
+
+        ValueError: Index contains duplicate entries, cannot reshape
+
+    \end{Verbatim}
+
+    \hypertarget{stacking-and-unstacking-dataframe}{%
+\subsubsection{STACKING and UNSTACKING
+DATAFRAME}\label{stacking-and-unstacking-dataframe}}
+
+\begin{itemize}
+\tightlist
+\item
+  deal with multi label indexes
+\item
+  level: position of unstacked index
+\item
+  swaplevel: change inner and outer level index position
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df1} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df1}
+        \PY{c+c1}{\PYZsh{} lets unstack it}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} level determines indexes}
+        \PY{n}{df1}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df1}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} change inner and outer level index position}
+        \PY{n}{df2} \PY{o}{=} \PY{n}{df1}\PY{o}{.}\PY{n}{swaplevel}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{df2}
+\end{Verbatim}
+
+
+    \hypertarget{melting-data-frames}{%
+\subsubsection{MELTING DATA FRAMES}\label{melting-data-frames}}
+
+\begin{itemize}
+\tightlist
+\item
+  Reverse of pivoting
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} df.pivot(index=\PYZdq{}treatment\PYZdq{},columns = \PYZdq{}gender\PYZdq{},values=\PYZdq{}response\PYZdq{})}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{id\PYZus{}vars}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{value\PYZus{}vars}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{response}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{categoricals-and-groupby}{%
+\subsubsection{CATEGORICALS AND
+GROUPBY}\label{categoricals-and-groupby}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} We will use df}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} according to treatment take means of other features}
+        \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}   \PY{c+c1}{\PYZsh{} mean is aggregation / reduction method}
+        \PY{c+c1}{\PYZsh{} there are other methods like sum, std,max or min}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} we can only choose one of the feature}
+        \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{age}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Or we can choose multiple features}
+        \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{response}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} as you can see gender is object}
+        \PY{c+c1}{\PYZsh{} However if we use groupby, we can convert it categorical data. }
+        \PY{c+c1}{\PYZsh{} Because categorical data uses less memory, speed up operations like groupby}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{treatment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{conclusion}{%
+\section{CONCLUSION}\label{conclusion}}
+
+Thank you for your votes and comments \textbf{MACHINE LEARNING }
+https://www.kaggle.com/kanncaa1/machine-learning-tutorial-for-beginners/
+\textbf{If you have any question or suggest, I will be happy to hear
+it.}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
